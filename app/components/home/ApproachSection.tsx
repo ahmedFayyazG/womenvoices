@@ -39,11 +39,26 @@ export function ApproachSection({
           padding: 80px 24px 120px 24px;
           color: #4D4D4D;
           position: relative;
-          overflow: hidden;
+          z-index: 30;
+          overflow: visible;
+          isolation: isolate;
+        }
+        .approach-top-chevron {
+          position: absolute;
+          top: -132px;
+          left: 0;
+          width: 100%;
+          height: 132px;
+          background: #FFFFFF;
+          clip-path: polygon(50% 0, 100% 100%, 0 100%);
+          pointer-events: none;
+          z-index: 40;
         }
         .approach-container {
           max-width: 1220px;
           margin: 0 auto;
+          position: relative;
+          z-index: 2;
         }
         .approach-top-row {
           display: flex;
@@ -248,6 +263,10 @@ export function ApproachSection({
           .approach-section {
             padding: 70px 24px 90px 24px;
           }
+          .approach-top-chevron {
+            top: -104px;
+            height: 104px;
+          }
           .approach-top-row {
             gap: 40px;
           }
@@ -280,6 +299,10 @@ export function ApproachSection({
         @media (max-width: 768px) {
           .approach-section {
             padding: 60px 24px 70px 24px;
+          }
+          .approach-top-chevron {
+            top: -76px;
+            height: 76px;
           }
           .approach-top-row {
             flex-direction: column;
@@ -353,6 +376,8 @@ export function ApproachSection({
           }
         }
       `}} />
+
+      <div className="approach-top-chevron" aria-hidden="true" />
 
       <div className="approach-container">
         {/* Top Row: Values and Creed */}

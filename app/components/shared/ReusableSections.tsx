@@ -127,6 +127,7 @@ export function EditorialAbout({
         </div>
       </div>
 
+      <div className="about-bottom-bridge" aria-hidden="true" />
       <div className="about-bottom-polygon" aria-hidden="true" />
     </section>
   );

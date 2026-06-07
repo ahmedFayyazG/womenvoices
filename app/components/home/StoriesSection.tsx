@@ -12,9 +12,9 @@ export function FeaturedStorySection() {
 
   // Replace these paths with actual carousel images if you have others
   const carouselImages = [
-    "/images/6.jpg",
-    "/images/11.jpg",
-    "/images/12.jpg"
+    "/images/11.jpg",   // group session at Burhan Centre
+    "/images/10.jpg",   // wellbeing circle meeting
+    "/images/7.jpg",    // creative plant workshop
   ];
 
   useEffect(() => {
@@ -379,22 +379,22 @@ export function StoriesSection() {
   const mediaThumbnails = [
     {
       title: "Community cooking — sharing food, culture & friendship",
-      img: "/images/14.jpeg",
+      img: "/images/14.jpeg",   // food prep
       accent: "#53155f",
     },
     {
       title: "Women’s leadership programme — building confidence & skills",
-      img: "/images/16.jpeg",
+      img: "/images/488680090_1135727991930374_8458782300465608855_n.jpg",   // award winner
       accent: "#0b7561",
     },
     {
       title: "Empowerment through education — ESOL & learning support",
-      img: "/images/17.jpg",
+      img: "/images/10.jpg",   // circle learning session at Burhan Centre
       accent: "#d70b68",
     },
     {
       title: "Community events — celebrating diversity in Longsight",
-      img: "/images/19.jpg",
+      img: "/images/16.jpeg",   // Bharatnatyam cultural dance workshop
       accent: "#14a28d",
     },
   ];
@@ -808,7 +808,7 @@ export function StoriesSection() {
         <div className="join-body">
           {/* Main photo */}
           <img
-            src="/images/198.jpg"
+            src="/images/6.jpg"
             alt="Women's Voices community moment"
             className="join-main-img"
           />

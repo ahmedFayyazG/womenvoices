@@ -107,7 +107,7 @@ a {
   color: #fff;
   font-family: "Avenir Medium", "Avenir Next", Avenir, var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 20px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -1380,8 +1380,8 @@ a {
 
 @media (max-width: 900px) {
   .navbar {
-    height: 92px;
-    min-height: 92px;
+    height: 76px;
+    min-height: 76px;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
@@ -1389,11 +1389,12 @@ a {
     padding-right: 16px;
     padding-block: 0;
     gap: 18px;
+    overflow: visible;
   }
 
   .navbar-scrolled {
-    height: 126px;
-    min-height: 126px;
+    height: 76px;
+    min-height: 76px;
   }
 
   .brand {

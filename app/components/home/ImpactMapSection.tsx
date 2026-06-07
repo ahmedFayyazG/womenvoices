@@ -55,6 +55,22 @@ export function ImpactMapSection() {
           position: relative;
           overflow: hidden;
         }
+
+        /* ── white arch at top — creates the oval/lens top curve ── */
+        .impact-top-wave {
+          position: absolute;
+          top: -1px; left: 0;
+          width: 100%; height: 140px;
+          pointer-events: none;
+          z-index: 3;
+        }
+        .impact-top-wave svg { width: 100%; height: 100%; display: block; }
+        @media (max-width: 768px) {
+          .impact-top-wave { height: 90px; }
+        }
+        @media (max-width: 480px) {
+          .impact-top-wave { height: 60px; }
+        }
         /* ── layout ── */
         .impact-inner {
           max-width: 1320px;
@@ -219,7 +235,7 @@ export function ImpactMapSection() {
         .impact-arrow-btn:hover { background: #3b0e48; color: #FFC113; }
         .impact-arrow-btn svg { pointer-events: none; }
 
-        /* ── bottom wave ── */
+        /* ── white arch at bottom — creates the oval/lens bottom curve ── */
         .impact-wave {
           position: absolute;
           bottom: -1px; left: 0;
@@ -313,6 +329,13 @@ export function ImpactMapSection() {
         }
       `}} />
 
+      {/* White arch at top — gives the oval lens shape */}
+      <div className="impact-top-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,0 L1440,0 L1440,72 Q720,150 0,72 Z" fill="#FFFFFF" />
+        </svg>
+      </div>
+
       <div className="impact-inner">
         {/* Map */}
         <div className="impact-map-col">
@@ -326,7 +349,8 @@ export function ImpactMapSection() {
 
         {/* Content */}
         <div className="impact-content-col">
-          <p className="impact-eyebrow">Our impact in numbers</p>
+          <br/>
+          <br/>
           <h2 className="impact-title">Our<br/>Impact</h2>
           <p className="impact-slide-label">{SLIDES[slide].label}</p>
 
@@ -367,8 +391,8 @@ export function ImpactMapSection() {
       </div>
 
       <div className="impact-wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,100 L0,0 Q720,90 1440,0 L1440,100 Z" fill="#FFFFFF" />
+        <svg viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,0 Q720,180 1440,0 L1440,180 L0,180 Z" fill="#FFFFFF" />
         </svg>
       </div>
     </section>
