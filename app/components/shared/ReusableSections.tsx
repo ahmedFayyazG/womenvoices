@@ -206,7 +206,7 @@ export function SplitImageHero({
             }
 
             .about-hero-title {
-              margin: 0 0 26px;
+              margin: 0 0 40px !important;
               color: var(--about-hero-text);
               font-family: "Gutenberg Clean Regular", var(--font-geist-sans), Arial, Helvetica, sans-serif;
               font-size: 55px;
@@ -312,7 +312,7 @@ export function SplitImageHero({
               .about-hero-title {
                 font-size: 40px;
                 line-height: 38px;
-                margin-bottom: 18px;
+                margin-bottom: 30px !important;
               }
 
               .about-hero-visual {

@@ -78,6 +78,8 @@ a {
 }
 
 .navbar-scrolled {
+  height: 76px;
+  overflow: visible;
   background: #fff;
   border-bottom-color: rgba(37, 19, 41, 0.08);
   box-shadow: 0 10px 34px rgba(37, 19, 41, 0.06);
@@ -205,6 +207,13 @@ a {
   justify-items: center;
 }
 
+.home-hero .hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 42px !important;
+}
+
 .hero-label {
   margin: 0 0 18px;
   color: var(--mustard);
@@ -216,7 +225,7 @@ a {
 
 .hero-copy p:not(.hero-label) {
   max-width: 790px;
-  margin: 22px 0 0;
+  margin: 38px 0 0 !important;
   color: rgba(255, 255, 255, 0.84);
   font-size: clamp(16px, 1.65vw, 20px);
   line-height: 1.65;
@@ -1380,6 +1389,11 @@ a {
     padding-right: 16px;
     padding-block: 0;
     gap: 18px;
+  }
+
+  .navbar-scrolled {
+    height: 126px;
+    min-height: 126px;
   }
 
   .brand {

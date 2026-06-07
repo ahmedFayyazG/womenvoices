@@ -276,7 +276,7 @@ export default function ReportsPublicationsPage() {
         </div>
         <div className="rp-wave" aria-hidden="true">
           <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-            <path d="M0,90 C480,10 960,10 1440,90 L1440,90 L0,90 Z" fill="#3b0e48" />
+            <path d="M0,90 C480,10 960,10 1440,90 L1440,90 L0,90 Z" fill="#ffffff" />
           </svg>
         </div>
       </section>

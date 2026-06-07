@@ -10,7 +10,7 @@ export default function BlogsPage() {
       <PatternHero
         title="Blogs"
         className="blogs-green-hero"
-        style={{ backgroundColor: "#4E9473" }}
+        style={{ backgroundColor: "#0D6FB8" }}
       />
       <BlogsPageSections />
       <FooterSection />

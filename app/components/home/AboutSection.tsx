@@ -134,27 +134,48 @@ const aboutSectionStyles = `
   }
   
   @media (max-width: 768px) {
+    /* shrink top+bottom padding so the section doesn't dwarf the illustration */
+    .about-section {
+      padding-top: 64px !important;
+      padding-bottom: 100px !important;
+    }
     .about-editorial-grid {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 24px;
       padding: 0 20px;
     }
     .about-center-col {
       height: auto;
+      display: flex;
+      justify-content: center;
     }
+    /* remove the desktop translateY that pushes illustration out of bounds */
     .about-woman-wrapper {
-      width: 100%;
-      transform: translateY(155px);
+      width: 72%;
+      max-width: 260px;
+      margin: 0 auto;
+      transform: none;
     }
     .about-left-col {
       padding-top: 0;
     }
+    /* taller chevron on mobile for a bolder transition */
     .about-bottom-polygon {
-      height: 80px;
+      height: 100px;
     }
     .about-flower {
-      width: 170px;
-      margin-top: 24px;
+      width: 150px;
+      margin-top: 16px;
+    }
+  }
+  @media (max-width: 480px) {
+    .about-section {
+      padding-top: 52px !important;
+      padding-bottom: 88px !important;
+    }
+    .about-woman-wrapper {
+      width: 65%;
+      max-width: 220px;
     }
   }
 `;

@@ -2,382 +2,383 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const SLIDES = [
+  {
+    label: "Community Reach",
+    stats: [
+      { number: "500+",  desc: "Women supported\nevery year" },
+      { number: "12+",   desc: "Years serving\nManchester" },
+      { number: "20+",   desc: "Weekly activities\n& programmes" },
+    ],
+  },
+  {
+    label: "Partnerships & Growth",
+    stats: [
+      { number: "30+",   desc: "Partner\norganisations" },
+      { number: "10+",   desc: "Languages spoken\nacross our community" },
+      { number: "100%",  desc: "Women-led\n& community-driven" },
+    ],
+  },
+  {
+    label: "Access & Inclusion",
+    stats: [
+      { number: "Free",  desc: "All services —\nno cost to participants" },
+      { number: "Est.\n2013", desc: "Over a decade\nof impact in Longsight" },
+      { number: "1 Hub", desc: "Burhan Centre,\nLongsight Manchester" },
+    ],
+  },
+];
+
 export function ImpactMapSection() {
-  const [isImpactVisible, setIsImpactVisible] = useState(false);
-  const impactRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [slide, setSlide] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsImpactVisible(true);
-          observer.disconnect();
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
       { threshold: 0.15 }
     );
-
-    if (impactRef.current) {
-      observer.observe(impactRef.current);
-    }
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
+  const prev = () => setSlide((s) => (s - 1 + SLIDES.length) % SLIDES.length);
+  const next = () => setSlide((s) => (s + 1) % SLIDES.length);
+
   return (
-    <section ref={impactRef} className={`impact-editorial-section ${isImpactVisible ? "is-visible" : ""}`}>
+    <section ref={sectionRef} className={`impact-section ${isVisible ? "is-visible" : ""}`}>
       <style dangerouslySetInnerHTML={{ __html: `
-        .impact-editorial-section {
-          background-color: #4E9473;
-          padding: 95px 0 220px 0;
+        .impact-section {
+          background: #FFC113;
+          padding: 100px 0 220px;
           position: relative;
           overflow: hidden;
         }
-        .impact-editorial-section::before {
+        .impact-section::before {
           content: "";
           position: absolute;
           inset: 0;
-          background-color: #FFC113;
-          clip-path: polygon(0 12%, 50% 0, 100% 12%, 100% 100%, 0 100%);
+          background: #FFFFFF;
+          clip-path: polygon(0 0, 100% 0, 100% 14%, 50% 4%, 0 14%);
           z-index: 0;
           pointer-events: none;
         }
-        .impact-container {
-          max-width: 1440px;
+
+        /* ── layout ── */
+        .impact-inner {
+          max-width: 1320px;
           margin: 0 auto;
           padding: 0 40px;
           display: flex;
           align-items: center;
-          gap: 44px;
+          gap: 56px;
           position: relative;
-          z-index: 11;
-          min-height: 470px;
+          z-index: 2;
         }
-        .impact-left {
-          width: 50%;
+        .impact-map-col {
+          flex: 0 0 46%;
           position: relative;
           opacity: 0;
-          transform: scale(0.95);
-          transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
+          transform: scale(0.94);
+          transition: opacity 0.85s ease 0.1s, transform 0.85s ease 0.1s;
         }
-        .impact-editorial-section.is-visible .impact-left {
-          opacity: 1;
-          transform: scale(1);
-        }
-        .impact-map-wrapper {
+        .impact-section.is-visible .impact-map-col { opacity: 1; transform: scale(1); }
+        .impact-map-wrap {
+          width: 130%;
+          margin: 80px 0 -180px -28%;
           position: relative;
-          width: 124%;
-          margin: 100px 0 -176px -30%;
-          z-index: 5;
         }
-        .impact-map-img {
-          width: 100%;
-          height: auto;
-          display: block;
-        }
+        .impact-map-wrap img { width: 100%; height: auto; display: block; }
         .impact-pin {
           position: absolute;
-          width: 12px;
-          height: 12px;
-          background-color: #E5007E;
+          width: 13px; height: 13px;
           border-radius: 50%;
-          box-shadow: 0 0 0 4px rgba(229, 0, 126, 0.3);
+          background: #E5007E;
+          box-shadow: 0 0 0 4px rgba(229,0,126,0.28);
           animation: pinPulse 2s infinite;
         }
-        .impact-pin-1 { top: 35%; left: 45%; }
-        .impact-pin-2 { top: 55%; left: 65%; background-color: #FFFFFF; box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3); animation-delay: 0.5s; }
-        .impact-pin-3 { top: 75%; left: 52%; animation-delay: 1s; }
-        
+        .impact-pin-2 { background: #fff; box-shadow: 0 0 0 4px rgba(255,255,255,0.3); animation-delay: 0.5s; }
+        .impact-pin-3 { animation-delay: 1s; }
+        .impact-pin-1 { top: 34%; left: 46%; }
+        .impact-pin-2 { top: 54%; left: 64%; }
+        .impact-pin-3 { top: 74%; left: 51%; }
         @keyframes pinPulse {
-          0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(229, 0, 126, 0.4); }
-          70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(229, 0, 126, 0); }
-          100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(229, 0, 126, 0); }
+          0%   { transform: scale(0.9); box-shadow: 0 0 0 0   rgba(229,0,126,0.45); }
+          70%  { transform: scale(1);   box-shadow: 0 0 0 10px rgba(229,0,126,0);   }
+          100% { transform: scale(0.9); box-shadow: 0 0 0 0   rgba(229,0,126,0);   }
         }
 
-        .impact-right {
-          width: 50%;
-          display: flex;
-          flex-direction: column;
-        }
-        .impact-heading {
-          font-family: "Gutenberg Clean Regular", "AMwA Font Medium", sans-serif;
-          font-size: 45px;
-          line-height: 1;
-          color: #E5007E;
-          text-transform: uppercase;
-          margin: 0 0 40px 0;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
-        }
-        .impact-editorial-section.is-visible .impact-heading {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .impact-cards-row {
-          display: flex;
-          gap: 16px;
-          margin-bottom: 30px;
-        }
-        .impact-card {
-          background-color: #FFFFFF;
+        /* ── right panel ── */
+        .impact-content-col {
           flex: 1;
-          height: 120px;
-          padding: 16px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          gap: 0;
           opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.7s ease, transform 0.7s ease;
-          border-radius: 0;
+          transform: translateY(24px);
+          transition: opacity 0.85s ease 0.2s, transform 0.85s ease 0.2s;
         }
-        .impact-editorial-section.is-visible .impact-card:nth-child(1) { transition-delay: 0.3s; }
-        .impact-editorial-section.is-visible .impact-card:nth-child(2) { transition-delay: 0.4s; }
-        .impact-editorial-section.is-visible .impact-card:nth-child(3) { transition-delay: 0.5s; }
-        .impact-editorial-section.is-visible .impact-card {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .impact-number {
-          font-family: "Gutenberg Clean Regular", "AMwA Font Medium", sans-serif;
-          font-size: 28px;
-          font-weight: 700;
-          color: #E5007E;
-          margin: 0 0 8px 0;
-          line-height: 1;
-        }
-        .impact-desc {
-          font-family: "Avenir LT 55 Regular", sans-serif;
+        .impact-section.is-visible .impact-content-col { opacity: 1; transform: translateY(0); }
+
+        .impact-eyebrow {
+          font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
           font-size: 11px;
-          letter-spacing: 2px;
-          line-height: 1.6;
-          color: #8E2A91;
-          margin: 0;
+          font-weight: 700;
+          letter-spacing: 3.5px;
           text-transform: uppercase;
+          color: #3b0e48;
+          margin: 0 0 10px;
+        }
+        .impact-title {
+          font-family: "Gutenberg Clean Regular", serif;
+          font-size: 64px;
+          line-height: 0.92;
+          color: #3b0e48;
+          text-transform: uppercase;
+          margin: 0 0 10px;
+        }
+        .impact-slide-label {
+          font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 2.5px;
+          text-transform: uppercase;
+          color: rgba(59,14,72,0.55);
+          margin: 0 0 32px;
+          min-height: 18px;
+          transition: opacity 0.35s;
         }
 
+        /* ── stat cards ── */
+        .impact-stats {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          margin-bottom: 36px;
+        }
+        .impact-stat-card {
+          background: rgba(255,255,255,0.72);
+          backdrop-filter: blur(4px);
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 20px 24px;
+          border-left: 4px solid #E5007E;
+          opacity: 0;
+          transform: translateX(24px);
+          transition: opacity 0.55s ease, transform 0.55s ease, background 0.2s;
+        }
+        .impact-stat-card:hover { background: rgba(255,255,255,0.92); }
+        .impact-section.is-visible .impact-stat-card:nth-child(1) { transition-delay: 0.35s; opacity:1; transform:translateX(0); }
+        .impact-section.is-visible .impact-stat-card:nth-child(2) { transition-delay: 0.48s; opacity:1; transform:translateX(0); }
+        .impact-section.is-visible .impact-stat-card:nth-child(3) { transition-delay: 0.61s; opacity:1; transform:translateX(0); }
+
+        .impact-stat-num {
+          font-family: "Gutenberg Clean Regular", serif;
+          font-size: 42px;
+          line-height: 1;
+          color: #E5007E;
+          min-width: 110px;
+          white-space: pre-line;
+        }
+        .impact-stat-desc {
+          font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
+          font-size: 12px;
+          letter-spacing: 1.8px;
+          line-height: 1.7;
+          color: #3b0e48;
+          text-transform: uppercase;
+          white-space: pre-line;
+          margin: 0;
+        }
+
+        /* ── controls ── */
         .impact-controls {
           display: flex;
+          align-items: center;
           justify-content: space-between;
-          align-items: center;
-          width: 100%;
           opacity: 0;
-          transition: opacity 0.8s ease 0.6s;
+          transition: opacity 0.7s ease 0.7s;
         }
-        .impact-editorial-section.is-visible .impact-controls {
-          opacity: 1;
-        }
-        .impact-dots {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
+        .impact-section.is-visible .impact-controls { opacity: 1; }
+
+        .impact-dots { display: flex; gap: 8px; align-items: center; }
         .impact-dot {
-          width: 8px;
-          height: 8px;
+          width: 7px; height: 7px;
           border-radius: 50%;
-          background-color: #E58C4A;
-        }
-        .impact-dot.is-active {
-          background-color: #E5007E;
-          width: 10px;
-          height: 10px;
-        }
-        .impact-arrows {
-          display: flex;
-          gap: 16px;
-        }
-        .impact-arrow {
+          background: rgba(59,14,72,0.22);
           cursor: pointer;
-          transition: opacity 0.2s;
+          transition: background 0.2s, transform 0.2s;
         }
-        .impact-arrow:hover {
-          opacity: 0.7;
+        .impact-dot.active {
+          background: #3b0e48;
+          transform: scale(1.45);
         }
 
-        .impact-bottom-curve {
+        .impact-arrows { display: flex; gap: 12px; }
+        .impact-arrow-btn {
+          width: 44px; height: 44px;
+          border: 2px solid #3b0e48;
+          background: transparent;
+          cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          transition: background 0.18s, color 0.18s;
+          color: #3b0e48;
+        }
+        .impact-arrow-btn:hover { background: #3b0e48; color: #FFC113; }
+        .impact-arrow-btn svg { pointer-events: none; }
+
+        /* ── bottom wave ── */
+        .impact-wave {
           position: absolute;
-          bottom: -1px;
-          left: 0;
-          width: 100%;
-          height: 180px;
-          z-index: 10;
-          pointer-events: none;
+          bottom: -1px; left: 0;
+          width: 100%; height: 180px;
+          z-index: 10; pointer-events: none;
         }
-        .impact-curve-svg {
-          width: 100%;
-          height: 100%;
-          display: block;
-        }
+        .impact-wave svg { width: 100%; height: 100%; display: block; }
 
+        /* ── responsive ── */
         @media (max-width: 1280px) {
-          .impact-editorial-section {
-            padding: 88px 0 180px 0;
-          }
-          .impact-container {
-            max-width: 1080px;
-            padding: 0 32px;
-            gap: 32px;
-          }
-          .impact-map-wrapper {
-            width: 106%;
-            margin: 80px 0 -136px -16%;
-          }
-          .impact-heading {
-            margin-bottom: 28px;
-          }
-          .impact-cards-row {
-            gap: 10px;
-          }
-          .impact-card {
-            height: 110px;
-            padding: 14px;
-          }
-          .impact-number {
-            font-size: 24px;
-          }
-          .impact-desc {
-            font-size: 10px;
-            letter-spacing: 1px;
-          }
+          .impact-title { font-size: 52px; }
+          .impact-stat-num { font-size: 36px; min-width: 90px; }
+          .impact-map-wrap { width: 112%; margin: 60px 0 -140px -16%; }
         }
-
         @media (max-width: 1024px) {
-          .impact-editorial-section {
-            padding: 90px 0 160px 0;
-          }
-          .impact-editorial-section::before {
-            clip-path: polygon(0 8%, 50% 0, 100% 8%, 100% 100%, 0 100%);
-          }
-          .impact-container {
+          .impact-section { padding: 80px 0 80px; }
+          .impact-inner {
             flex-direction: column;
-            gap: 50px;
-            min-height: 0;
-          }
-          .impact-left, .impact-right {
-            width: 100%;
-          }
-          .impact-map-wrapper {
-            width: min(92%, 520px);
-            margin: 40px auto -80px auto;
-          }
-          .impact-cards-row {
-            flex-wrap: wrap;
-            justify-content: center;
-          }
-          .impact-card {
-            flex: 0 0 calc(50% - 8px);
-          }
-          .impact-controls {
-            margin-top: 10px;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .impact-editorial-section {
-            padding: 60px 0 100px 0;
-          }
-          .impact-editorial-section::before {
-            clip-path: polygon(0 5%, 50% 0, 100% 5%, 100% 100%, 0 100%);
-          }
-          .impact-container {
-            padding: 0 24px;
             gap: 40px;
+            padding: 0 32px 40px;
           }
-          .impact-right {
-            order: 1;
-          }
-          .impact-left {
-            order: 2;
-          }
-          .impact-map-wrapper {
-            width: 120%;
+          .impact-map-col, .impact-content-col { flex: none; width: 100%; }
+          /* reset the negative-margin map trick — show it as a normal image */
+          .impact-map-wrap {
+            width: 100%;
             max-width: 480px;
-            margin: 60px 0 -32px -10%;
+            margin: 0 auto;
           }
-          .impact-heading {
-            font-size: 32px;
-            text-align: center;
-            margin-bottom: 24px;
+          .impact-title { font-size: 48px; }
+          .impact-wave { height: 80px; }
+        }
+        @media (max-width: 768px) {
+          /* allow map to bleed out of section into footer */
+          .impact-section { padding: 52px 0 0; overflow: visible; }
+          .impact-section::before {
+            clip-path: polygon(0 0, 100% 0, 100% 8%, 50% 2%, 0 8%);
           }
-          .impact-cards-row {
+          /* hide wave — map overlap handles the visual transition */
+          .impact-wave { display: none; }
+
+          .impact-inner {
+            flex-direction: column;
+            padding: 0 20px 0;
+            gap: 28px;
+            align-items: center;
+          }
+          .impact-content-col {
+            order: 1;
+            width: 100%;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            text-align: center;
           }
-          .impact-card {
+          .impact-map-col {
+            order: 2;
             width: 100%;
-            max-width: 320px;
-            height: auto;
-            min-height: 90px;
-            padding: 12px 16px;
             flex: none;
+            position: relative;
+            z-index: 20;
+            /* pull map down so it bleeds into the footer */
+            margin-bottom: -140px;
           }
-          .impact-number {
-            font-size: 24px;
-            margin-bottom: 4px;
+
+          .impact-eyebrow   { font-size: 10px; margin-bottom: 6px; text-align: center; }
+          .impact-title     { font-size: 36px; line-height: 1; margin-bottom: 8px; text-align: center; }
+          .impact-slide-label { font-size: 10px; letter-spacing: 1.5px; margin-bottom: 18px; text-align: center; }
+
+          .impact-stats { gap: 2px; margin-bottom: 20px; width: 100%; }
+          .impact-stat-card { padding: 12px 16px; gap: 14px; }
+          .impact-stat-num  { font-size: 28px; min-width: 64px; }
+          .impact-stat-desc { font-size: 10px; letter-spacing: 1px; line-height: 1.5; }
+
+          .impact-controls { width: 100%; }
+          .impact-arrow-btn { width: 38px; height: 38px; }
+
+          /* map: full width, no shrinking */
+          .impact-map-wrap {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
           }
-          .impact-desc {
-            font-size: 10px;
-            line-height: 1.6;
-          }
-          .impact-bottom-curve {
-            height: 60px;
-          }
+          .impact-map-wrap img { width: 100%; height: auto; display: block; }
+        }
+        @media (max-width: 480px) {
+          .impact-section { padding: 44px 0 0; }
+          .impact-inner { padding: 0 16px 0; gap: 20px; }
+          .impact-title { font-size: 30px; }
+          .impact-stat-num { font-size: 24px; }
+          .impact-map-col { margin-bottom: -120px; }
         }
       `}} />
 
-      <div className="impact-container">
-        <div className="impact-left">
-          <div className="impact-map-wrapper">
-            <img src="/images/maplongsight.png" alt="Impact Map" className="impact-map-img" />
+      <div className="impact-inner">
+        {/* Map */}
+        <div className="impact-map-col">
+          <div className="impact-map-wrap">
+            <img src="/images/maplongsight.png" alt="Longsight, Manchester map" />
             <div className="impact-pin impact-pin-1" />
             <div className="impact-pin impact-pin-2" />
             <div className="impact-pin impact-pin-3" />
           </div>
         </div>
-        
-        <div className="impact-right">
-          <h2 className="impact-heading">IMPACT</h2>
-          
-          <div className="impact-cards-row">
-            <div className="impact-card">
-              <p className="impact-number">10,134</p>
-              <p className="impact-desc">INDIRECT REACH (PERSONS)<br/>THROUGH OUR SUB-GRANTEE<br/>PARTNERS</p>
-            </div>
-            <div className="impact-card">
-              <p className="impact-number">33</p>
-              <p className="impact-desc">NEW PARTNERSHIPS<br/>ESTABLISHED</p>
-            </div>
-            <div className="impact-card">
-              <p className="impact-number">1,420,036</p>
-              <p className="impact-desc">FUNDS PROVIDED TO PARTNERS<br/>BY AMWA THROUGH SUB-<br/>GRANTING</p>
-            </div>
+
+        {/* Content */}
+        <div className="impact-content-col">
+          <p className="impact-eyebrow">Our impact in numbers</p>
+          <h2 className="impact-title">Our<br/>Impact</h2>
+          <p className="impact-slide-label">{SLIDES[slide].label}</p>
+
+          <div className="impact-stats">
+            {SLIDES[slide].stats.map((s, i) => (
+              <div key={i} className="impact-stat-card">
+                <span className="impact-stat-num">{s.number}</span>
+                <p className="impact-stat-desc">{s.desc}</p>
+              </div>
+            ))}
           </div>
-          
+
           <div className="impact-controls">
             <div className="impact-dots">
-              <span className="impact-dot is-active"></span>
-              <span className="impact-dot"></span>
-              <span className="impact-dot"></span>
-              <span className="impact-dot"></span>
+              {SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  className={`impact-dot${i === slide ? " active" : ""}`}
+                  onClick={() => setSlide(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
             </div>
             <div className="impact-arrows">
-              <svg className="impact-arrow" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E5007E" strokeWidth="1.5">
-                <path d="M15 18l-6-6 6-6" strokeLinecap="square"/>
-              </svg>
-              <svg className="impact-arrow" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E5007E" strokeWidth="1.5">
-                <path d="M9 18l6-6-6-6" strokeLinecap="square"/>
-              </svg>
+              <button className="impact-arrow-btn" onClick={prev} aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square">
+                  <path d="M15 18l-6-6 6-6"/>
+                </svg>
+              </button>
+              <button className="impact-arrow-btn" onClick={next} aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Editorial Soft Curve */}
-      <div className="impact-bottom-curve" aria-hidden="true">
-        <svg className="impact-curve-svg" viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,100 L0,0 Q720,80 1440,0 L1440,100 Z" fill="#FFFFFF" />
+      <div className="impact-wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,100 L0,0 Q720,90 1440,0 L1440,100 Z" fill="#FFFFFF" />
         </svg>
       </div>
     </section>

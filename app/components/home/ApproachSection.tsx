@@ -64,36 +64,48 @@ export function ApproachSection({
         }
         .values-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          column-gap: 20px;
-          row-gap: 18px;
-          align-items: start;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 4px;
         }
         .approach-value-card {
-          background-color: #E5017E;
-          height: 48px;
-          min-height: 48px;
-          max-height: 48px;
-          box-sizing: border-box;
+          position: relative;
+          height: 156px;
+          padding: 18px 20px 20px;
           display: flex;
-          align-items: center;
-          padding: 0 18px;
-          border-radius: 0;
+          flex-direction: column;
+          justify-content: flex-end;
           overflow: hidden;
+          cursor: default;
+          transition: filter 0.2s;
         }
-        .value-icon {
-          width: 14px;
-          height: 14px;
-          margin-right: 10px;
+        .approach-value-card:hover { filter: brightness(1.08); }
+        .value-ghost-num {
+          position: absolute;
+          top: -14px;
+          right: 6px;
+          font-family: "Gutenberg Clean Regular", serif;
+          font-size: 108px;
+          line-height: 1;
+          color: rgba(255,255,255,0.09);
+          pointer-events: none;
+          user-select: none;
+        }
+        .value-accent {
+          width: 28px;
+          height: 3px;
+          margin-bottom: 10px;
           flex-shrink: 0;
+          background: rgba(255,255,255,0.55);
         }
         .value-text {
-          font-family: "Avenir LT 55 Regular", sans-serif;
-          font-size: 14px;
-          line-height: 18px;
-          letter-spacing: 0px;
-          color: #FFFFFF;
+          font-family: "Gutenberg Clean Regular", serif;
+          font-size: 15px;
+          line-height: 1.25;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
           margin: 0;
+          position: relative;
+          z-index: 1;
         }
         .creed-paragraph {
           font-family: "Avenir LT 55 Regular", sans-serif;
@@ -281,14 +293,14 @@ export function ApproachSection({
             line-height: 36px;
           }
           .values-grid {
-            grid-template-columns: 1fr;
-            gap: 14px;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
           }
           .approach-value-card {
-            height: 48px;
-            min-height: 48px;
-            max-height: 48px;
+            height: 130px;
           }
+          .value-ghost-num { font-size: 80px; }
+          .value-text { font-size: 13px; }
           .creed-paragraph {
             font-size: 14px;
             line-height: 21px;
@@ -334,15 +346,29 @@ export function ApproachSection({
           <div className="approach-col">
             <h2 className="approach-heading" style={{ textAlign: "right" }}>{valuesHeading}</h2>
             <div className="values-grid">
-              {values.map((value, idx) => (
-                <div className="approach-value-card" key={idx}>
-                  {/* White Asterisk Icon */}
-                  <svg className="value-icon" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="square">
-                    <path d="M12 3v18M3 12h18M5.636 5.636l12.728 12.728M5.636 18.364L18.364 5.636" />
-                  </svg>
-                  <p className="value-text">{value}</p>
-                </div>
-              ))}
+              {values.map((value, idx) => {
+                const palette = [
+                  { bg: "#53155f", text: "#fff" },
+                  { bg: "#0b7561", text: "#fff" },
+                  { bg: "#d70b68", text: "#fff" },
+                  { bg: "#e4b93d", text: "#251329" },
+                  { bg: "#14a28d", text: "#fff" },
+                  { bg: "#3b0e48", text: "#fff" },
+                ];
+                const { bg, text } = palette[idx % palette.length];
+                const num = String(idx + 1).padStart(2, "0");
+                return (
+                  <div
+                    className="approach-value-card"
+                    key={idx}
+                    style={{ background: bg }}
+                  >
+                    <span className="value-ghost-num">{num}</span>
+                    <div className="value-accent" style={{ background: text === "#fff" ? "rgba(255,255,255,0.45)" : "rgba(37,19,41,0.3)" }} />
+                    <p className="value-text" style={{ color: text }}>{value}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

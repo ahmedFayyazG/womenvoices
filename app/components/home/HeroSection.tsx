@@ -6,7 +6,8 @@ export function HeroSection({
   id = "top",
   title = "Building Stronger Communities Through Women's Empowerment",
   cta = { href: "#about", label: "Read More" },
+  className = "",
   ...props
 }: HeroSectionProps = {}) {
-  return <PatternHero id={id} title={title} cta={cta} {...props} />;
+  return <PatternHero id={id} title={title} cta={cta} className={`home-hero ${className}`.trim()} {...props} />;
 }

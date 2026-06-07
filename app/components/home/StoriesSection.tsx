@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { stories } from "@/app/data/home";
-import { EventsSection } from "@/app/components/home/EventsSection";
+import { communityStories } from "@/app/data/stories";
+import { ImpactMapSection } from "@/app/components/home/ImpactMapSection";
 
 export function FeaturedStorySection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -49,20 +50,8 @@ export function FeaturedStorySection() {
           background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 60c-18-18-42-6-42-6s12-24 30-6c18-18 42-6 42-6s-12 24-30 6c-18 18-6 42-6 42s-24-12-6-30c18 18 6 42 6 42s24-12 6-30z' fill='none' stroke='%23FFC523' stroke-width='1'/%3E%3C/svg%3E");
           position: relative;
           width: 100%;
-          padding: 160px 0 200px 0;
+          padding: 80px 0 200px 0;
           overflow: hidden;
-        }
-
-        /* Top Magenta Divider */
-        .awli-top-polygon {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 120px;
-          background-color: #E5007E;
-          clip-path: polygon(0 0, 100% 0, 100% 20%, 50% 100%, 0 20%);
-          z-index: 10;
         }
 
         /* Bottom Cream Divider */
@@ -196,7 +185,21 @@ export function FeaturedStorySection() {
           opacity: 0;
           transform: translateY(20px);
           transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 44px;
+          padding: 0 26px;
+          background-color: #14a28d;
+          border: 2px solid #14a28d;
+          color: #ffffff;
+          font-family: "Avenir Medium", "Avenir Next", Avenir, var(--font-geist-sans), Arial, Helvetica, sans-serif;
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 15px;
+          letter-spacing: 3.2px;
+          text-transform: uppercase;
+          box-shadow: 8px 8px 0 var(--mustard);
         }
         .awli-editorial-section.is-visible .awli-cta {
           opacity: 1;
@@ -308,9 +311,6 @@ export function FeaturedStorySection() {
         }
       `}} />
 
-      {/* Top Magenta Angular Divider */}
-      <div className="awli-top-polygon" aria-hidden="true" />
-
       <div className="awli-grid">
         {/* Left Side: Carousel */}
         <div className="awli-left-col">
@@ -375,68 +375,28 @@ export function StoriesSection() {
     return () => observer.disconnect();
   }, []);
 
-  const communityStories = [
-    {
-      meta: "STORY",
-      title: "BUILDING CONFIDENCE AGAIN",
-      quote: "Women's Voices gave me a place where I felt supported and understood. I gained confidence and found a community.",
-      img: "/images/3.jpg"
-    },
-    {
-      meta: "STORY",
-      title: "LEARNING AND INDEPENDENCE",
-      quote: "The training and support helped me improve my English, meet people, and feel more independent.",
-      img: "/images/14.jpeg"
-    },
-    {
-      meta: "STORY",
-      title: "HEALING THROUGH COMMUNITY",
-      quote: "I no longer feel isolated. I found friendship, support, and hope for the future.",
-      img: "/images/6.jpg"
-    },
-    {
-      meta: "STORY",
-      title: "A SENSE OF BELONGING",
-      quote: "Being part of this group has changed my life. I finally feel like I belong somewhere.",
-      img: "/images/7.jpg"
-    },
-    {
-      meta: "STORY",
-      title: "FINDING MY VOICE",
-      quote: "I have learned how to speak up for myself and my family. The support here is incredible.",
-      img: "/images/9.jpg"
-    },
-    {
-      meta: "STORY",
-      title: "GROWING TOGETHER",
-      quote: "We share our struggles and our victories. It is a beautiful sisterhood.",
-      img: "/images/10.jpg"
-    },
-    {
-      meta: "STORY",
-      title: "STRENGTH IN NUMBERS",
-      quote: "Together we are stronger. This community has given me the tools to build a better life.",
-      img: "/images/11.jpg"
-    }
-  ];
 
   const mediaThumbnails = [
     {
-      title: "WHAT COMES NEXT? FEMINIST REFLECTIONS ON THE UN TAX CONVENTION AFTER THE FOURTH SESSION.",
-      img: "/images/14.jpeg"
+      title: "Community cooking — sharing food, culture & friendship",
+      img: "/images/14.jpeg",
+      accent: "#53155f",
     },
     {
-      title: "HON. KHANYISILE LITCHFIELD TSHABALALA RECLAIMING AFRICA’S FISCAL SOVEREIGNTY",
-      img: "/images/16.jpeg"
+      title: "Women’s leadership programme — building confidence & skills",
+      img: "/images/16.jpeg",
+      accent: "#0b7561",
     },
     {
-      title: "OVONJI ODIDA ON RECLAIMING AFRICA’S FISCAL SOVEREIGNTY",
-      img: "/images/17.jpg"
+      title: "Empowerment through education — ESOL & learning support",
+      img: "/images/17.jpg",
+      accent: "#d70b68",
     },
     {
-      title: "FROM GROUND TO GLOBAL: AFRICAN WOMEN’S POWER IN CLIMATE ACTION",
-      img: "/images/19.jpg"
-    }
+      title: "Community events — celebrating diversity in Longsight",
+      img: "/images/19.jpg",
+      accent: "#14a28d",
+    },
   ];
 
   return (
@@ -643,7 +603,7 @@ export function StoriesSection() {
                   <p className="story-meta">{story.meta}</p>
                   <h3 className="story-title">{story.title}</h3>
                   <p className="story-quote">&quot;{story.quote}&quot;</p>
-                  <a href="#read" className="story-btn">READ</a>
+                  <a href={`/stories/${story.slug}`} className="story-btn">READ</a>
                 </div>
               </div>
             </article>
@@ -655,264 +615,221 @@ export function StoriesSection() {
 
       <section ref={joinRef} className={`join-editorial-section ${isJoinVisible ? "is-visible" : ""}`}>
         <style dangerouslySetInnerHTML={{ __html: `
+          /* ── section shell ── */
           .join-editorial-section {
-            background-color: #FFFFFF;
-            padding: 60px 0 120px 0;
+            background: #ffffff;
+            padding: 0 0 0 0;
             position: relative;
             overflow: hidden;
           }
-          .join-container {
-            max-width: 1320px;
-            margin: 0 auto;
-            padding: 0 40px;
+
+          /* ── header bar ── */
+          .join-header-bar {
+            background: #3b0e48;
+            padding: 52px 40px 48px;
             display: flex;
-            gap: 70px;
-            position: relative;
-            z-index: 2;
-          }
-          .join-left {
-            width: 24%;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
+            transform: translateY(16px);
+            transition: opacity 0.7s ease 0.05s, transform 0.7s ease 0.05s;
           }
-          .join-right {
-            width: 70%;
+          .join-editorial-section.is-visible .join-header-bar {
+            opacity: 1; transform: translateY(0);
           }
-          .join-editorial-section.is-visible .join-left {
-            opacity: 1;
-            transform: translateY(0);
+          .join-header-left {}
+          .join-eyebrow {
+            font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: #FDBE18;
+            margin: 0 0 12px;
           }
           .join-heading {
-            font-family: "Gutenberg Clean Regular", sans-serif;
-            font-size: 45px;
-            line-height: 45px;
-            letter-spacing: 0px;
+            font-family: "Gutenberg Clean Regular", serif;
+            font-size: 54px;
+            line-height: 0.95;
             text-transform: uppercase;
-            color: #4E9072;
-            margin: 0 0 55px 0;
+            color: #fff;
+            margin: 0;
           }
-          .join-social {
+          .join-header-social {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            gap: 14px;
           }
-          .join-x-icon {
-            width: 52px;
-            height: 52px;
-            fill: #E5007E;
+          .join-social-link {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 20px;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            color: #fff;
+            text-decoration: none;
+            font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: background 0.2s, border-color 0.2s;
           }
-          .join-social p {
-            font-family: "Avenir LT 55 Regular", sans-serif;
-            font-size: 16px;
-            color: #E5007E;
-            margin: 18px 0 0 0;
+          .join-social-link:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
+          }
+          .join-social-link svg { flex-shrink: 0; }
+
+          /* ── body ── */
+          .join-body {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            margin-top: 4px;
           }
 
-          .join-main-video {
-            width: 100%;
-            height: 420px;
-            position: relative;
-            margin-bottom: 4px;
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
-          }
-          .join-editorial-section.is-visible .join-main-video {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          .join-main-video img {
+          /* left: main image */
+          .join-main-img {
             width: 100%;
             height: 100%;
+            min-height: 480px;
             object-fit: cover;
+            display: block;
+            opacity: 0;
+            transform: scale(0.97);
+            transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
           }
-          .yt-play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 68px;
-            height: 48px;
-            background-color: #FF0000;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-          .yt-play-triangle {
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 10px 0 10px 16px;
-            border-color: transparent transparent transparent #FFFFFF;
-            margin-left: 4px;
+          .join-editorial-section.is-visible .join-main-img {
+            opacity: 1; transform: scale(1);
           }
 
-          .join-thumbnails-strip {
-            display: flex;
+          /* right: 2x2 grid */
+          .join-thumb-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 4px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-          }
-          .join-thumbnails-strip::-webkit-scrollbar {
-            display: none;
           }
           .join-thumb-card {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            min-width: 0;
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
           }
-          .join-editorial-section.is-visible .join-thumb-card:nth-child(1) { transition-delay: 0.4s; }
-          .join-editorial-section.is-visible .join-thumb-card:nth-child(2) { transition-delay: 0.5s; }
-          .join-editorial-section.is-visible .join-thumb-card:nth-child(3) { transition-delay: 0.6s; }
-          .join-editorial-section.is-visible .join-thumb-card:nth-child(4) { transition-delay: 0.7s; }
-          .join-editorial-section.is-visible .join-thumb-card {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          .join-editorial-section.is-visible .join-thumb-card:nth-child(1) { transition-delay: 0.25s; opacity:1; transform:translateY(0); }
+          .join-editorial-section.is-visible .join-thumb-card:nth-child(2) { transition-delay: 0.35s; opacity:1; transform:translateY(0); }
+          .join-editorial-section.is-visible .join-thumb-card:nth-child(3) { transition-delay: 0.45s; opacity:1; transform:translateY(0); }
+          .join-editorial-section.is-visible .join-thumb-card:nth-child(4) { transition-delay: 0.55s; opacity:1; transform:translateY(0); }
           .join-thumb-img {
             width: 100%;
-            height: 180px;
+            height: 190px;
             object-fit: cover;
-          }
-          .join-thumb-caption {
-            background-color: #E5007E;
-            color: #FFFFFF;
-            font-family: "Avenir LT 55 Regular", sans-serif;
-            font-size: 11px;
-            letter-spacing: 4px;
-            line-height: 1.7;
-            padding: 12px;
-            flex-grow: 1;
-            text-transform: uppercase;
-          }
-
-          .join-bottom-curve {
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            z-index: 10;
-            pointer-events: none;
-          }
-          .join-curve-svg {
-            width: 100%;
-            height: 100%;
             display: block;
+            transition: transform 0.4s ease;
+          }
+          .join-thumb-card:hover .join-thumb-img { transform: scale(1.04); }
+          .join-thumb-img-wrap { overflow: hidden; }
+          .join-thumb-caption {
+            color: #fff;
+            font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            line-height: 1.65;
+            padding: 14px 16px;
+            flex-grow: 1;
           }
 
+          /* ── responsive ── */
           @media (max-width: 1280px) {
-            .join-container {
-              max-width: 1080px;
-              padding: 0 32px;
-              gap: 44px;
-            }
-            .join-left {
-              width: 28%;
-            }
-            .join-right {
-              width: 68%;
-            }
-            .join-heading {
-              font-size: 38px;
-              line-height: 40px;
-            }
-            .join-main-video {
-              height: 340px;
-            }
-            .join-thumb-img {
-              height: 140px;
-            }
-            .join-thumb-caption {
-              letter-spacing: 2.8px;
-            }
+            .join-header-bar { padding: 44px 32px 40px; }
+            .join-heading { font-size: 44px; }
+            .join-body { padding: 0 32px 64px; }
+            .join-main-img { min-height: 400px; }
+            .join-thumb-img { height: 160px; }
           }
-
           @media (max-width: 1024px) {
-            .join-container {
-              padding: 0 30px;
-              gap: 40px;
-            }
-            .join-left { width: 30%; }
-            .join-right { width: 66%; }
-            .join-main-video { height: 320px; }
-            .join-thumb-card { flex: 0 0 calc(33.333% - 4px); scroll-snap-align: start; }
-            .join-thumbnails-strip {
-              scroll-snap-type: x mandatory;
-              padding-bottom: 12px;
-            }
+            .join-body { grid-template-columns: 1fr; padding: 0 0 0; }
+            .join-main-img { min-height: 360px; }
+            .join-thumb-grid { grid-template-columns: repeat(4,1fr); }
+            .join-thumb-img { height: 140px; }
           }
-
           @media (max-width: 768px) {
-            .join-editorial-section {
-              padding: 50px 0 80px 0;
-            }
-            .join-container {
-              flex-direction: column;
-              padding: 0 24px;
-              gap: 40px;
-            }
-            .join-left { width: 100%; }
-            .join-right { width: 100%; }
-            .join-heading { margin-bottom: 30px; }
-            .join-main-video {
-              height: 240px;
-            }
-            .join-thumb-card {
-              flex: 0 0 75vw;
-            }
-            .join-thumb-img {
-              height: 160px;
-            }
-            .join-bottom-curve {
-              height: 40px;
-            }
+            .join-header-bar { padding: 36px 20px 32px; flex-direction: column; align-items: flex-start; }
+            .join-heading { font-size: 34px; }
+            .join-header-social { flex-wrap: wrap; }
+            .join-body { padding: 0; gap: 4px; }
+            .join-main-img { min-height: 260px; }
+            .join-thumb-grid { grid-template-columns: 1fr 1fr; }
+            .join-thumb-img { height: 130px; }
+            .join-thumb-caption { font-size: 10px; padding: 10px 12px; }
           }
         `}} />
 
-        <div className="join-container">
-          <div className="join-left">
-            <h2 className="join-heading">JOIN THE CONVERSATION</h2>
-            <div className="join-social">
-              <svg className="join-x-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-              </svg>
-              <p>Posts by WV</p>
-            </div>
+        {/* Header bar */}
+        <div className="join-header-bar">
+          <div className="join-header-left">
+            <p className="join-eyebrow">Follow us online</p>
+            <h2 className="join-heading">Join the<br/>Conversation</h2>
           </div>
-          <div className="join-right">
-            <div className="join-main-video">
-              <img src="/images/198.jpg" alt="Main Video Thumbnail" />
-              <div className="yt-play-button">
-                <div className="yt-play-triangle" />
-              </div>
-            </div>
-            <div className="join-thumbnails-strip">
-              {mediaThumbnails.map((thumb, index) => (
-                <div className="join-thumb-card" key={index}>
-                  <img src={thumb.img} alt={thumb.title} className="join-thumb-img" />
-                  <div className="join-thumb-caption">{thumb.title}</div>
-                </div>
-              ))}
-            </div>
+          <div className="join-header-social">
+            <a
+              href="https://www.facebook.com/womensvoicesmcr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="join-social-link"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+              </svg>
+              Facebook
+            </a>
+            <a
+              href="https://twitter.com/WomensVoicesMCR"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="join-social-link"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+              Twitter / X
+            </a>
           </div>
         </div>
-        
-        <div className="join-bottom-curve" aria-hidden="true">
-          <svg className="join-curve-svg" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,60 L1440,60 L1440,30 Q720,-10 0,30 Z" fill="#F4F4F4" />
-          </svg>
+
+        {/* Body */}
+        <div className="join-body">
+          {/* Main photo */}
+          <img
+            src="/images/198.jpg"
+            alt="Women's Voices community moment"
+            className="join-main-img"
+          />
+
+          {/* 2×2 thumbnail grid */}
+          <div className="join-thumb-grid">
+            {mediaThumbnails.map((thumb, index) => (
+              <div className="join-thumb-card" key={index}>
+                <div className="join-thumb-img-wrap">
+                  <img src={thumb.img} alt={thumb.title} className="join-thumb-img" />
+                </div>
+                <div className="join-thumb-caption" style={{ background: thumb.accent }}>
+                  {thumb.title}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <EventsSection />
+      <ImpactMapSection />
     </>
   );
 }

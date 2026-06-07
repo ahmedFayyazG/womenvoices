@@ -111,7 +111,7 @@ export function ContactPageSections({
 
             .contact-location-text {
               max-width: 480px;
-              margin: 24px 0 0;
+              margin: 40px 0 0 !important;
               color: #ffffff;
               font-family: "Avenir LT 55 Regular", "Avenir Next", Arial, sans-serif;
               font-size: 18px;
@@ -342,6 +342,7 @@ export function ContactPageSections({
               }
 
               .contact-location-text {
+                margin-top: 30px !important;
                 font-size: 16px;
                 line-height: 1.75;
               }

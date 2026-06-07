@@ -39,6 +39,7 @@ export function FooterSection() {
         .editorial-footer {
           background-color: #FFFFFF;
           position: relative;
+          z-index: 1;
           padding: 90px 0 0;
           overflow: hidden;
         }
@@ -393,7 +394,7 @@ export function FooterSection() {
         }
 
         @media (max-width: 768px) {
-          .editorial-footer { padding-top: 72px; }
+          .editorial-footer { padding-top: 160px; }
           .footer-logo-bar { padding: 0 24px 24px; }
           .footer-logo-wrapper { width: min(100%, 280px); height: 112px; margin-left: -24px; }
           .footer-logo-img { width: 300%; left: -4%; }
