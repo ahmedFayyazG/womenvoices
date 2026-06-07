@@ -55,16 +55,6 @@ export function ImpactMapSection() {
           position: relative;
           overflow: hidden;
         }
-        .impact-section::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: #FFFFFF;
-          clip-path: polygon(0 0, 100% 0, 100% 14%, 50% 4%, 0 14%);
-          z-index: 0;
-          pointer-events: none;
-        }
-
         /* ── layout ── */
         .impact-inner {
           max-width: 1320px;

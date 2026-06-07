@@ -60,9 +60,7 @@ export default function AboutPage() {
       <GuidingPrinciplesSection />
       <HowWeWorkSection />
       <OurStorySection />
-      <div style={{ marginTop: "-1.5rem", position: "relative", zIndex: 20 }}>
-        <ImpactMapSection />
-      </div>
+      <ImpactMapSection />
       <FooterSection />
     </main>
   );

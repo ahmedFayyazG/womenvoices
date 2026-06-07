@@ -2,346 +2,251 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const MILESTONES = [
+  {
+    year: "2013",
+    accent: "#E5007E",
+    title: "Founded",
+    desc: "Women's Voices was established in Longsight, Manchester — a community hub creating safe, inclusive spaces for women from diverse ethnic, migrant, and refugee backgrounds.",
+  },
+  {
+    year: "2016",
+    accent: "#FDBE18",
+    title: "Expanding Programmes",
+    desc: "We grew our ESOL classes, wellbeing workshops, and employability support — serving over 200 women annually and building strong local partnerships.",
+  },
+  {
+    year: "2020",
+    accent: "#3b0e48",
+    title: "Adapting Through Challenge",
+    desc: "Through the pandemic, we delivered essential food aid, digital support, and online wellbeing sessions — keeping our community connected and cared for.",
+  },
+  {
+    year: "2025",
+    accent: "#14a28d",
+    title: "A Decade of Impact",
+    desc: "Today we serve 500+ women each year through 20+ weekly programmes, 30+ partner organisations, and our hub at the Burhan Centre, Longsight.",
+  },
+];
+
 export function OurStorySection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const milestones = [
-    {
-      title: "CREATING SAFE SPACES",
-      text: "Women’s Voices began with a commitment to creating trusted, welcoming spaces where women could connect, share experiences, access support, and feel heard without judgement.",
-      year: "2019"
-    },
-    {
-      title: "COMMUNITY ENGAGEMENT",
-      text: "Our work grew through workshops, mentoring, wellbeing activities, education sessions, and practical support designed around the needs of women and families in our communities.",
-      year: "2022"
-    },
-    {
-      title: "GROWTH AND OPPORTUNITY",
-      text: "Today, Women’s Voices continues to strengthen confidence, independence, leadership, and belonging through community programmes, creative engagement, partnerships, and advocacy.",
-      year: "2025"
-    }
-  ];
-
-  const scrollLeft = () => {
-    if (trackRef.current) {
-      trackRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (trackRef.current) {
-      trackRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section ref={sectionRef} className={`our-story-section ${isVisible ? "is-visible" : ""}`}>
+    <section ref={sectionRef} className={`os-section ${isVisible ? "is-visible" : ""}`}>
       <style dangerouslySetInnerHTML={{ __html: `
-        .our-story-section {
-          background-color: #4E9473;
+        .os-section {
+          background: #4E9473;
           background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 60c-18-18-42-6-42-6s12-24 30-6c18-18 42-6 42-6s-12 24-30 6c-18 18-6 42-6 42s-24-12-6-30c18 18 6 42 6 42s24-12 6-30z' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.04'/%3E%3C/svg%3E");
-          padding: 120px 0 140px 0;
+          padding: 100px 0 280px;
           position: relative;
           overflow: hidden;
         }
-        .os-container {
+
+        /* ── container ── */
+        .os-inner {
           max-width: 1320px;
           margin: 0 auto;
           padding: 0 40px;
           position: relative;
           z-index: 2;
         }
+
+        /* ── header ── */
         .os-heading {
-          font-family: "Gutenberg Clean Regular", "AMwA Font Medium", sans-serif;
-          font-size: 56px;
-          line-height: 1;
-          color: #FFFFFF;
+          font-family: "Gutenberg Clean Regular", serif;
+          font-size: 62px;
+          line-height: 0.95;
           text-transform: uppercase;
-          margin: 0 0 30px 0;
+          color: #fff;
+          margin: 0 0 24px;
           opacity: 0;
-          transform: translateY(24px);
+          transform: translateY(20px);
           transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
         }
         .os-intro {
-          font-family: "Avenir LT 55 Regular", sans-serif;
+          font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
           font-size: 16px;
-          line-height: 1.7;
-          color: #FFFFFF;
-          max-width: 900px;
-          margin: 0 0 80px 0;
+          line-height: 1.75;
+          color: rgba(255,255,255,0.75);
+          max-width: 780px;
+          margin: 0 0 72px;
           opacity: 0;
-          transform: translateY(24px);
+          transform: translateY(20px);
           transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
         }
-        .our-story-section.is-visible .os-heading,
-        .our-story-section.is-visible .os-intro {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .os-timeline-container {
-          display: flex;
-          align-items: center;
-          width: 100%;
-        }
-        .os-arrow {
-          width: 52px;
-          height: 52px;
-          border-radius: 50%;
-          border: 2px solid #E5007E;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          flex-shrink: 0;
-          transition: background-color 0.3s ease;
-          opacity: 0;
-        }
-        .our-story-section.is-visible .os-arrow {
-          opacity: 1;
-          transition: opacity 0.8s ease 0.6s, background-color 0.3s ease;
-        }
-        .os-arrow:hover {
-          background-color: rgba(229, 0, 126, 0.1);
-        }
-        .os-track-wrapper {
-          flex-grow: 1;
-          margin: 0 40px;
+        .os-section.is-visible .os-heading,
+        .os-section.is-visible .os-intro { opacity: 1; transform: translateY(0); }
+
+        /* ── timeline grid ── */
+        .os-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
           position: relative;
         }
-        .os-track {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          position: relative;
-          width: 100%;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        .os-track::-webkit-scrollbar {
-          display: none;
-        }
-        .os-line {
+
+        /* horizontal connector line */
+        .os-grid::before {
+          content: "";
           position: absolute;
-          bottom: 42px;
-          left: 0;
-          min-width: 100%;
-          width: 200%;
+          top: 12px;
+          left: calc(12px);
+          right: calc(12px);
           height: 2px;
-          background-color: rgba(255, 255, 255, 0.4);
+          background: rgba(255,255,255,0.25);
+          z-index: 0;
         }
-        .os-item {
+
+        /* ── single milestone ── */
+        .os-milestone {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          width: 380px;
-          flex-shrink: 0;
-          scroll-snap-align: center;
-          position: relative;
           opacity: 0;
           transform: translateY(24px);
-          transition: opacity 0.8s ease, transform 0.8s ease;
+          transition: opacity 0.65s ease, transform 0.65s ease;
         }
-        .our-story-section.is-visible .os-item:nth-child(2) { transition-delay: 0.3s; }
-        .our-story-section.is-visible .os-item:nth-child(3) { transition-delay: 0.4s; }
-        .our-story-section.is-visible .os-item:nth-child(4) { transition-delay: 0.5s; }
-        .our-story-section.is-visible .os-item {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .os-card {
-          background-color: #FFFFFF;
-          border: 1px solid #E6DFCF;
-          padding: 28px;
-          width: 100%;
-          position: relative;
-          margin-bottom: 30px;
-        }
-        .os-card::after {
-          content: '';
-          position: absolute;
-          bottom: -9px;
-          left: 50%;
-          transform: translateX(-50%) rotate(45deg);
-          width: 16px;
-          height: 16px;
-          background-color: #FFFFFF;
-          border-right: 1px solid #E6DFCF;
-          border-bottom: 1px solid #E6DFCF;
-        }
-        .os-card-title {
-          font-family: "Avenir LT 55 Regular", sans-serif;
-          font-size: 15px;
-          letter-spacing: 6px;
-          color: #4D4D4D;
-          text-transform: uppercase;
-          margin: 0 0 12px 0;
-        }
-        .os-card-text {
-          font-family: "Avenir LT 55 Regular", sans-serif;
-          font-size: 15px;
-          line-height: 1.6;
-          color: #4D4D4D;
-          margin: 0;
-        }
-        .os-marker-group {
+        .os-section.is-visible .os-milestone:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.20s; }
+        .os-section.is-visible .os-milestone:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.32s; }
+        .os-section.is-visible .os-milestone:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.44s; }
+        .os-section.is-visible .os-milestone:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.56s; }
+
+        /* dot + year row */
+        .os-dot-row {
           display: flex;
-          flex-direction: column;
           align-items: center;
+          gap: 12px;
+          margin-bottom: 20px;
+          position: relative;
           z-index: 2;
         }
-        .os-marker {
+        .os-dot {
           width: 24px;
           height: 24px;
-          background-color: #E5007E;
           border-radius: 50%;
-          margin-bottom: 12px;
+          flex-shrink: 0;
+          box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
           transform: scale(0.5);
-          transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition: transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
         }
-        .our-story-section.is-visible .os-marker {
-          transform: scale(1);
-        }
-        .our-story-section.is-visible .os-item:nth-child(2) .os-marker { transition-delay: 0.5s; }
-        .our-story-section.is-visible .os-item:nth-child(3) .os-marker { transition-delay: 0.6s; }
-        .our-story-section.is-visible .os-item:nth-child(4) .os-marker { transition-delay: 0.7s; }
-        
-        .os-year {
-          font-family: "Avenir LT 55 Regular", sans-serif;
-          font-size: 16px;
-          letter-spacing: 6px;
+        .os-section.is-visible .os-milestone:nth-child(1) .os-dot { transform:scale(1); transition-delay:0.40s; }
+        .os-section.is-visible .os-milestone:nth-child(2) .os-dot { transform:scale(1); transition-delay:0.52s; }
+        .os-section.is-visible .os-milestone:nth-child(3) .os-dot { transform:scale(1); transition-delay:0.64s; }
+        .os-section.is-visible .os-milestone:nth-child(4) .os-dot { transform:scale(1); transition-delay:0.76s; }
+
+        .os-year-label {
+          font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
+          font-size: 11px;
           font-weight: 700;
-          color: #FFFFFF;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.6);
           margin: 0;
         }
 
+        /* card */
+        .os-card {
+          background: #fff;
+          border-left: 5px solid transparent;
+          padding: 22px 20px 22px 18px;
+          flex-grow: 1;
+        }
+        .os-card-year {
+          font-family: "Gutenberg Clean Regular", serif;
+          font-size: 40px;
+          line-height: 1;
+          margin: 0 0 6px;
+        }
+        .os-card-title {
+          font-family: "Gutenberg Clean Regular", serif;
+          font-size: 16px;
+          line-height: 1.25;
+          text-transform: uppercase;
+          color: #251329;
+          margin: 0 0 10px;
+        }
+        .os-card-desc {
+          font-family: "Avenir LT 55 Regular","Avenir Next",Avenir,Arial,sans-serif;
+          font-size: 13px;
+          line-height: 1.75;
+          color: #5a5a5a;
+          margin: 0;
+        }
+
+        /* ── bottom polygon → yellow ── */
+        .os-polygon {
+          position: absolute;
+          bottom: 0; left: 0;
+          width: 100%; height: 180px;
+          background: #FFC113;
+          clip-path: polygon(0 0, 50% 80%, 100% 0, 100% 100%, 0 100%);
+          z-index: 1;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 1.2s ease 0.4s, transform 1.2s ease 0.4s;
+        }
+        .os-section.is-visible .os-polygon { opacity: 1; transform: translateY(0); }
+
+        /* ── responsive ── */
         @media (max-width: 1280px) {
-          .os-item { width: 300px; }
+          .os-inner { padding: 0 32px; }
+          .os-heading { font-size: 50px; }
+          .os-grid { gap: 16px; }
         }
-
         @media (max-width: 1024px) {
-          .os-track-wrapper { margin: 0 20px; }
-          .os-track {
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 40px;
-            padding-bottom: 20px;
-            justify-content: flex-start;
-            scrollbar-width: none;
-          }
-          .os-track::-webkit-scrollbar { display: none; }
-          .os-item {
-            flex: 0 0 calc(50% - 20px);
-            scroll-snap-align: start;
-          }
-          .os-line { width: 200%; }
+          .os-section { padding: 80px 0 250px; }
+          .os-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+          .os-grid::before { display: none; }
         }
-
         @media (max-width: 768px) {
-          .our-story-section { padding: 80px 0 100px 0; }
-          .os-container { padding: 0 24px; }
-          .os-heading { font-size: 36px; }
-          .os-intro { margin-bottom: 50px; }
-          .os-arrow { display: none; }
-          .os-track-wrapper { margin: 0; overflow: visible; }
-          .os-track {
-            flex-direction: column;
-            align-items: flex-start;
-            overflow-x: visible;
-            gap: 40px;
-            padding-bottom: 0;
-          }
-          .os-line {
-            width: 2px;
-            height: 100%;
-            left: 11px;
-            top: 0;
-            bottom: auto;
-          }
-          .os-item {
-            width: 100%;
-            padding-left: 50px;
-            align-items: flex-start;
-            flex: none;
-          }
-          .os-card { margin-bottom: 0; }
-          .os-card::after {
-            left: -9px;
-            top: 24px;
-            bottom: auto;
-            transform: rotate(135deg);
-          }
-          .os-marker-group {
-            position: absolute;
-            left: 0;
-            top: 20px;
-            width: 24px;
-          }
-          .os-marker { margin-bottom: 8px; }
-          .os-year { font-size: 14px; letter-spacing: 4px; }
+          .os-section { padding: 60px 0 220px; }
+          .os-inner { padding: 0 20px; }
+          .os-heading { font-size: 38px; }
+          .os-intro { font-size: 14px; margin-bottom: 48px; }
+          .os-grid { grid-template-columns: 1fr; gap: 16px; }
+          .os-card-year { font-size: 32px; }
+          .os-polygon { height: 120px; clip-path: polygon(0 0, 50% 65%, 100% 0, 100% 100%, 0 100%); }
+        }
+        @media (max-width: 480px) {
+          .os-heading { font-size: 32px; }
         }
       `}} />
 
-      <div className="os-container">
-        <h2 className="os-heading">OUR STORY</h2>
+      <div className="os-inner">
+        <h2 className="os-heading">Our Story</h2>
         <p className="os-intro">
-          Women’s Voices was created to support women from diverse ethnic, migrant, refugee, and underserved communities who face isolation, inequality, language barriers, and social exclusion. Through safe spaces, mentoring, education, creative engagement, and community-led support, we help women build confidence, wellbeing, independence, and opportunity.
+          Women's Voices was created to support women from diverse ethnic, migrant, refugee, and underserved communities who face isolation, inequality, language barriers, and social exclusion. Through safe spaces, mentoring, education, and community-led support, we help women build confidence, independence, and opportunity.
         </p>
-        
-        <div className="os-timeline-container">
-          <button className="os-arrow" onClick={scrollLeft} aria-label="Scroll Left">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E5007E" strokeWidth="2">
-              <path d="M15 18l-6-6 6-6" strokeLinecap="square"/>
-            </svg>
-          </button>
-          
-          <div className="os-track-wrapper">
-            <div className="os-track" ref={trackRef}>
-              <div className="os-line" />
-              {milestones.map((milestone, idx) => (
-                <div className="os-item" key={idx}>
-                  <div className="os-card">
-                    <h3 className="os-card-title">{milestone.title}</h3>
-                    <p className="os-card-text">{milestone.text}</p>
-                  </div>
-                  <div className="os-marker-group">
-                    <div className="os-marker" />
-                    <p className="os-year">{milestone.year}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          <button className="os-arrow" onClick={scrollRight} aria-label="Scroll Right">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E5007E" strokeWidth="2">
-              <path d="M9 18l6-6-6-6" strokeLinecap="square"/>
-            </svg>
-          </button>
+        <div className="os-grid">
+          {MILESTONES.map((m) => (
+            <div className="os-milestone" key={m.year}>
+              <div className="os-dot-row">
+                <span className="os-dot" style={{ background: m.accent }} />
+                <p className="os-year-label">{m.year}</p>
+              </div>
+              <div className="os-card" style={{ borderLeftColor: m.accent }}>
+                <p className="os-card-year" style={{ color: m.accent }}>{m.year}</p>
+                <h3 className="os-card-title">{m.title}</h3>
+                <p className="os-card-desc">{m.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* Yellow chevron → ImpactMapSection */}
+      <div className="os-polygon" aria-hidden="true" />
     </section>
   );
 }

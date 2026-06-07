@@ -316,25 +316,25 @@ export function SplitImageHero({
               }
 
               .about-hero-visual {
-                min-height: 360px;
+                min-height: 440px;
               }
 
               .about-hero-frame {
-                width: min(560px, 88vw);
+                width: min(680px, 96vw);
                 transform: rotate(-1.5deg);
                 animation: aboutHeroFloatMobile 6s ease-in-out infinite;
               }
 
               .about-hero-fan {
-                width: clamp(230px, 48vw, 330px);
-                left: -28px;
-                bottom: -56px;
+                width: clamp(300px, 68vw, 430px);
+                left: -54px;
+                bottom: -78px;
               }
 
               .about-hero-fan-right {
-                width: clamp(180px, 36vw, 255px);
-                right: -26px;
-                bottom: -32px;
+                width: clamp(240px, 54vw, 340px);
+                right: -54px;
+                bottom: -52px;
               }
             }
 
@@ -359,7 +359,7 @@ export function SplitImageHero({
                 src={decoration.src}
                 alt=""
                 fill
-                sizes="(max-width: 860px) 48vw, 475px"
+                sizes="(max-width: 860px) 68vw, 475px"
                 priority
               />
             </div>
@@ -370,7 +370,7 @@ export function SplitImageHero({
               src={image.src}
               alt={image.alt}
               fill
-              sizes="(max-width: 860px) 88vw, 700px"
+              sizes="(max-width: 860px) 96vw, 700px"
               priority
             />
           </div>

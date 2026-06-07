@@ -139,7 +139,7 @@ export function ApproachSection({
           margin: 0 0 10px 0;
         }
         .thematic-main-heading {
-          font-family: "AMwA Font Medium", sans-serif;
+          font-family: "Gutenberg Clean Regular", serif;
           font-size: 45px;
           line-height: 50px;
           color: #4D4D4D;
@@ -315,25 +315,41 @@ export function ApproachSection({
           .thematic-cards-row {
             flex-direction: column;
             align-items: center;
-            gap: 50px;
+            gap: 32px;
           }
           .thematic-card {
-            width: 82vw;
-            height: 82vw;
-            max-width: 360px;
-            max-height: 360px;
+            width: 62vw;
+            height: 62vw;
+            max-width: 240px;
+            max-height: 240px;
           }
           .thematic-caption {
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: 3px;
           }
           .thematic-desc {
-            font-size: 14px;
-            line-height: 21px;
-            max-width: 82vw;
+            font-size: 13px;
+            line-height: 20px;
+            max-width: 72vw;
           }
           .approach-divider-container {
             height: 50px;
+          }
+        }
+        @media (max-width: 480px) {
+          .thematic-card {
+            width: 56vw;
+            height: 56vw;
+            max-width: 200px;
+            max-height: 200px;
+          }
+          .thematic-cards-row {
+            gap: 24px;
+          }
+          .thematic-caption {
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin-top: 14px;
           }
         }
       `}} />

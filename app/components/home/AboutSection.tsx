@@ -151,8 +151,8 @@ const aboutSectionStyles = `
     }
     /* remove the desktop translateY that pushes illustration out of bounds */
     .about-woman-wrapper {
-      width: 72%;
-      max-width: 260px;
+      width: 96%;
+      max-width: 430px;
       margin: 0 auto;
       transform: none;
     }
@@ -174,8 +174,8 @@ const aboutSectionStyles = `
       padding-bottom: 88px !important;
     }
     .about-woman-wrapper {
-      width: 65%;
-      max-width: 220px;
+      width: 100%;
+      max-width: 380px;
     }
   }
 `;
